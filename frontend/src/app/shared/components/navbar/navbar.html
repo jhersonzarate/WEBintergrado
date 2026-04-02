@@ -1,1 +1,36 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a routerLink="/productos" class="brand">
+      🍿 <span>Snacktopia</span>
+    </a>
+
+    <div class="nav-links" [class.open]="menuOpen">
+      <a routerLink="/productos" routerLinkActive="active" (click)="menuOpen=false">Productos</a>
+      @if (auth.isLoggedIn()) {
+        <a routerLink="/recomendaciones" routerLinkActive="active" (click)="menuOpen=false">Para ti</a>
+        <a routerLink="/pedidos" routerLinkActive="active" (click)="menuOpen=false">Mis pedidos</a>
+        @if (auth.isAdmin()) {
+          <a routerLink="/admin/dashboard" routerLinkActive="active" (click)="menuOpen=false">Admin</a>
+        }
+      }
+    </div>
+
+    <div class="nav-actions">
+      @if (auth.isLoggedIn()) {
+        <a routerLink="/carrito" class="cart-btn">
+          🛒
+          @if (cartService.itemCount() > 0) {
+            <span class="badge">{{ cartService.itemCount() }}</span>
+          }
+        </a>
+        <span class="user-name">{{ auth.currentUser()?.nombre }}</span>
+        <button class="btn-logout" (click)="auth.logout()">Salir</button>
+      } @else {
+        <a routerLink="/auth/login" class="btn-nav-login">Iniciar sesión</a>
+        <a routerLink="/auth/register" class="btn-nav-register">Registrarse</a>
+      }
+    </div>
+
+    <button class="hamburger" (click)="menuOpen = !menuOpen">☰</button>
+  </div>
+</nav>

@@ -1,0 +1,32 @@
+@import 'variables';
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card {
+  background: #fff;
+  border-radius: $border-radius;
+  box-shadow: $card-shadow;
+  padding: 1.5rem;
+}
+
+@mixin btn-primary {
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+  &:hover { background: $primary-dark; transform: translateY(-1px); }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+@mixin responsive($bp) {
+  @if $bp == md { @media (max-width: 768px) { @content; } }
+  @if $bp == sm { @media (max-width: 480px) { @content; } }
+}

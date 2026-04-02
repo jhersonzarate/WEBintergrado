@@ -1,1 +1,43 @@
-<p>pedidos works!</p>
+<div class="container pedidos-page">
+  <h1 class="page-title">📦 Mis Pedidos</h1>
+
+  @if (loading()) {
+    <div class="spinner"></div>
+  } @else if (pedidos().length === 0) {
+    <div class="empty-state">
+      <span>📦</span>
+      <p>Aún no tienes pedidos</p>
+    </div>
+  } @else {
+    <div class="pedidos-list">
+      @for (pedido of pedidos(); track pedido.id) {
+        <div class="pedido-card">
+          <div class="pedido-header" (click)="toggle(pedido.id)">
+            <div class="pedido-meta">
+              <span class="pedido-id">#{{ pedido.id }}</span>
+              <span class="pedido-fecha">{{ pedido.creadoEn | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <div class="pedido-right">
+              <span class="pedido-total">S/ {{ pedido.total | number:'1.2-2' }}</span>
+              <span class="pedido-estado" [class]="pedido.estado.toLowerCase()">{{ pedido.estado }}</span>
+              <span class="toggle-icon">{{ expandedId() === pedido.id ? '▲' : '▼' }}</span>
+            </div>
+          </div>
+
+          @if (expandedId() === pedido.id) {
+            <div class="pedido-detalles">
+              @for (detalle of pedido.detalles; track detalle.productoId) {
+                <div class="detalle-row">
+                  <span>{{ detalle.productoNombre }}</span>
+                  <span>x{{ detalle.cantidad }}</span>
+                  <span>S/ {{ detalle.precioUnitario | number:'1.2-2' }}</span>
+                  <span>S/ {{ detalle.subtotal | number:'1.2-2' }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

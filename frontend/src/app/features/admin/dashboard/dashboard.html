@@ -1,1 +1,48 @@
-<p>dashboard works!</p>
+<div class="container admin-page">
+  <div class="admin-header">
+    <h1 class="page-title">⚙️ Panel Admin</h1>
+    <a routerLink="/admin/productos/nuevo" class="btn-primary">+ Nuevo producto</a>
+  </div>
+
+  @if (loading()) {
+    <div class="spinner"></div>
+  } @else {
+    <div class="admin-table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of productos(); track p.id) {
+            <tr>
+              <td><img [src]="p.imagenUrl" [alt]="p.nombre" class="table-img" /></td>
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.marca }}</td>
+              <td>{{ p.categoriaNombre }}</td>
+              <td>S/ {{ p.precio | number:'1.2-2' }}</td>
+              <td>{{ p.stock }}</td>
+              <td>
+                <span [class]="p.activo ? 'badge-active' : 'badge-inactive'">
+                  {{ p.activo ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td class="actions">
+                <a [routerLink]="['/admin/productos', p.id, 'editar']" class="btn-edit">Editar</a>
+                <button class="btn-delete" (click)="eliminar(p.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

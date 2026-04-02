@@ -1,0 +1,95 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.carrito-page { padding: 2rem 0; }
+
+.carrito-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  align-items: start;
+  @include responsive(md) { grid-template-columns: 1fr; }
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  @include card;
+  margin-bottom: 1rem;
+
+  img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; }
+
+  .item-info {
+    flex: 1;
+    h3 { font-size: 0.95rem; font-weight: 600; }
+    .price { color: $text-muted; font-size: 0.85rem; }
+  }
+
+  .qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    button {
+      width: 30px; height: 30px;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+      @include flex-center;
+      &:hover { border-color: $primary; color: $primary; }
+    }
+    span { font-weight: 600; min-width: 24px; text-align: center; }
+  }
+
+  .subtotal { font-weight: 700; color: $primary; min-width: 80px; text-align: right; }
+
+  .btn-remove {
+    background: none;
+    border: none;
+    color: $text-muted;
+    cursor: pointer;
+    font-size: 1rem;
+    &:hover { color: $danger; }
+  }
+}
+
+.order-summary {
+  @include card;
+  position: sticky;
+  top: 80px;
+
+  h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid $border-color;
+    font-size: 0.95rem;
+    &.total {
+      font-size: 1.1rem;
+      border-bottom: none;
+      margin-top: 0.5rem;
+      strong { color: $primary; font-size: 1.3rem; }
+    }
+  }
+
+  .btn-checkout {
+    @include btn-primary;
+    width: 100%;
+    padding: 0.875rem;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .btn-continue {
+    display: block;
+    text-align: center;
+    margin-top: 0.75rem;
+    color: $text-muted;
+    font-size: 0.9rem;
+    &:hover { color: $primary; }
+  }
+}

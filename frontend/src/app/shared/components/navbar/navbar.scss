@@ -1,0 +1,123 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.navbar {
+  background: #fff;
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 64px;
+  }
+
+  .brand {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: $primary;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    span { color: $text-dark; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    flex: 1;
+    a {
+      color: $text-muted;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: $transition;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+      &:hover, &.active {
+        color: $primary;
+        border-bottom-color: $primary;
+      }
+    }
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+  }
+
+  .cart-btn {
+    position: relative;
+    font-size: 1.4rem;
+    .badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+    }
+  }
+
+  .user-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: $text-dark;
+  }
+
+  .btn-logout {
+    background: none;
+    border: 1px solid $border-color;
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: $text-muted;
+    transition: $transition;
+    &:hover { border-color: $danger; color: $danger; }
+  }
+
+  .btn-nav-login {
+    color: $primary;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .btn-nav-register {
+    background: $primary;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: $transition;
+    &:hover { background: $primary-dark; }
+  }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  @include responsive(md) {
+    .hamburger { display: block; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0; right: 0;
+      background: #fff;
+      flex-direction: column;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid $border-color;
+      &.open { display: flex; }
+    }
+  }
+}

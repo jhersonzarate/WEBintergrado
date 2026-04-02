@@ -1,0 +1,82 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.admin-page { padding: 2rem 0; }
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.admin-table-wrapper {
+  @include card;
+  padding: 0;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  th, td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+  th {
+    background: $bg-light;
+    font-weight: 700;
+    color: $text-muted;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  tr:not(:last-child) td { border-bottom: 1px solid $border-color; }
+  .table-img { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; }
+}
+
+.badge-active {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-inactive {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  .btn-edit {
+    padding: 0.35rem 0.8rem;
+    border-radius: 8px;
+    background: $primary;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: $transition;
+    &:hover { background: $primary-dark; }
+  }
+  .btn-delete {
+    padding: 0.35rem 0.8rem;
+    border-radius: 8px;
+    background: #fee2e2;
+    color: $danger;
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: $transition;
+    &:hover { background: $danger; color: #fff; }
+  }
+}

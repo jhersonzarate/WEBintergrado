@@ -1,1 +1,58 @@
-<p>product-list works!</p>
+<div class="container product-page">
+  <div class="page-header">
+    <h1 class="page-title">🍿 Nuestros Snacks</h1>
+    <div class="search-bar">
+      <input [(ngModel)]="searchMarca" placeholder="Buscar por marca..." (keyup.enter)="loadProducts()" />
+      <button (click)="loadProducts()">Buscar</button>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button [class.active]="selectedCategoria === 0" (click)="filterByCategoria(0)">Todos</button>
+    @for (cat of categorias(); track cat.id) {
+      <button [class.active]="selectedCategoria === cat.id" (click)="filterByCategoria(cat.id)">
+        {{ cat.nombre }}
+      </button>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="spinner"></div>
+  } @else if (products().length === 0) {
+    <div class="empty-state">
+      <span>😔</span>
+      <p>No se encontraron productos</p>
+    </div>
+  } @else {
+    <div class="products-grid">
+      @for (product of products(); track product.id) {
+        <div class="product-card">
+          <a [routerLink]="['/productos', product.id]">
+            <div class="product-img">
+              <img [src]="product.imagenUrl || 'assets/snack-placeholder.png'" [alt]="product.nombre" />
+              <span class="category-badge">{{ product.categoriaNombre }}</span>
+            </div>
+            <div class="product-info">
+              <h3>{{ product.nombre }}</h3>
+              <p class="marca">{{ product.marca }}</p>
+              <p class="descripcion">{{ product.descripcion }}</p>
+            </div>
+          </a>
+          <div class="product-footer">
+            <span class="price">S/ {{ product.precio | number:'1.2-2' }}</span>
+            @if (auth.isLoggedIn()) {
+              <button
+                class="btn-add"
+                (click)="addToCart(product)"
+                [disabled]="addingId() === product.id || product.stock === 0">
+                {{ product.stock === 0 ? 'Sin stock' : addingId() === product.id ? '...' : '+ Carrito' }}
+              </button>
+            } @else {
+              <a routerLink="/auth/login" class="btn-add">Iniciar sesión</a>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

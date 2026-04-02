@@ -1,1 +1,35 @@
-<p>recomendaciones works!</p>
+<div class="container recom-page">
+  <div class="recom-header">
+    <h1 class="page-title">✨ Recomendados para ti</h1>
+    <p>Basado en tus preferencias e historial de compras</p>
+  </div>
+
+  @if (loading()) {
+    <div class="spinner"></div>
+  } @else if (recomendaciones().length === 0) {
+    <div class="empty-state">
+      <span>🛒</span>
+      <p>Realiza tu primera compra para recibir recomendaciones personalizadas</p>
+      <a routerLink="/productos" class="btn-primary">Explorar productos</a>
+    </div>
+  } @else {
+    <div class="recom-grid">
+      @for (r of recomendaciones(); track r.productoId) {
+        <div class="recom-card">
+          <img [src]="r.imagenUrl" [alt]="r.nombre" />
+          <div class="recom-info">
+            <span class="motivo-badge">{{ r.motivo }}</span>
+            <h3>{{ r.nombre }}</h3>
+            <p class="categoria">{{ r.categoriaNombre }}</p>
+            <div class="recom-footer">
+              <span class="price">S/ {{ r.precio | number:'1.2-2' }}</span>
+              <button class="btn-add" (click)="addToCart(r)" [disabled]="addingId() === r.productoId">
+                {{ addingId() === r.productoId ? '...' : '+ Carrito' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

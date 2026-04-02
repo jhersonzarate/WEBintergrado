@@ -1,1 +1,59 @@
-<p>product-form works!</p>
+<div class="container form-page">
+  <h1 class="page-title">{{ isEdit ? '✏️ Editar producto' : '➕ Nuevo producto' }}</h1>
+
+  <div class="form-card">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nombre *</label>
+          <input type="text" formControlName="nombre" />
+        </div>
+        <div class="form-group">
+          <label>Marca</label>
+          <input type="text" formControlName="marca" />
+        </div>
+        <div class="form-group">
+          <label>Precio *</label>
+          <input type="number" formControlName="precio" step="0.01" />
+        </div>
+        <div class="form-group">
+          <label>Stock</label>
+          <input type="number" formControlName="stock" />
+        </div>
+        <div class="form-group full-width">
+          <label>Descripción</label>
+          <textarea formControlName="descripcion" rows="3"></textarea>
+        </div>
+        <div class="form-group full-width">
+          <label>URL de imagen</label>
+          <input type="text" formControlName="imagenUrl" />
+        </div>
+        <div class="form-group">
+          <label>Categoría *</label>
+          <select formControlName="categoriaId">
+            <option [value]="null">Seleccionar...</option>
+            @for (cat of categorias; track cat.id) {
+              <option [value]="cat.id">{{ cat.nombre }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Estado</label>
+          <select formControlName="activo">
+            <option [value]="true">Activo</option>
+            <option [value]="false">Inactivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-outline" (click)="router.navigate(['/admin/dashboard'])">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="loading || form.invalid">
+          {{ loading ? 'Guardando...' : isEdit ? 'Actualizar' : 'Crear producto' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

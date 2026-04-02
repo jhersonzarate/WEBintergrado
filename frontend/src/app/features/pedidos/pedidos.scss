@@ -1,0 +1,62 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.pedidos-page { padding: 2rem 0; }
+
+.pedido-card {
+  @include card;
+  margin-bottom: 1rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: $transition;
+  &:hover { background: $bg-light; }
+}
+
+.pedido-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  .pedido-id { font-weight: 700; color: $primary; }
+  .pedido-fecha { color: $text-muted; font-size: 0.85rem; }
+}
+
+.pedido-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  .pedido-total { font-weight: 800; font-size: 1.1rem; color: $primary; }
+}
+
+.pedido-estado {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  &.completado { background: #d1fae5; color: #065f46; }
+  &.pendiente { background: #fef3c7; color: #92400e; }
+  &.cancelado { background: #fee2e2; color: #991b1b; }
+}
+
+.pedido-detalles {
+  border-top: 1px solid $border-color;
+  padding: 1rem 1.5rem;
+}
+
+.detalle-row {
+  display: grid;
+  grid-template-columns: 1fr 60px 100px 100px;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid $border-color;
+  &:last-child { border-bottom: none; }
+  span:last-child { text-align: right; font-weight: 600; color: $primary; }
+}
